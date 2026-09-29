@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe · LP Dr. Lucas Guedes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --display: "Cormorant Garamond", "Garamond", Georgia, serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --ink: #1d1d1f;
+    --txt: #3a3a3c;
+    --mut: #6e6e73;
+    --line: #c7c7cc;
+    --soft: #f2f2f4;
+    --soft2: #e5e5ea;
+    --bg: #d6d6db;
+    --note: #2b59c3;
+    --note-bg: #eef3ff;
+    --note-ink: #1c3d8a;
+    --fw: 1280px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--txt);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  body[data-vp="desktop"] { --fw: 1280px; }
+  body[data-vp="tablet"]  { --fw: 768px; }
+  body[data-vp="mobile"]  { --fw: 390px; }
+  body[data-vp="full"]    { --fw: 100%; }
+
+  /* ---------- Barra do wireframe (fora da LP) ---------- */
+  .tb {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 12px 16px; background: var(--ink); color: #fff;
+  }
+  .tb h1 { margin: 0; font-size: 15px; font-weight: 600; }
+  .tb h1 small { display: block; font-weight: 400; color: #aeaeb2; font-size: 12px; margin-top: 2px; }
+  .tb-ctrl { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .seg { display: inline-flex; border: 1px solid #48484a; border-radius: 8px; overflow: hidden; }
+  .seg button {
+    background: transparent; color: #d1d1d6; border: 0; padding: 8px 12px; min-height: 36px;
+    font: 500 13px system-ui, sans-serif; cursor: pointer;
+  }
+  .seg button + button { border-left: 1px solid #48484a; }
+  .seg button[aria-pressed="true"] { background: #fff; color: var(--ink); }
+  .tgl { display: inline-flex; gap: 8px; align-items: center; font-size: 13px; color: #d1d1d6; cursor: pointer; }
+  .tgl input { width: 16px; height: 16px; }
+
+  .stage { padding: 20px 16px 96px; }
+  .frame-meta {
+    width: var(--fw); max-width: 100%; margin: 0 auto 8px;
+    display: flex; justify-content: space-between; font: 12px ui-monospace, Consolas, monospace; color: #48484a;
+  }
+  .frame {
+    width: var(--fw); max-width: 100%; margin: 0 auto; background: #fff;
+    box-shadow: 0 0 0 1px #aeaeb2, 0 12px 32px rgba(0,0,0,.10);
+    transition: width .3s ease;
+  }
+
+  /* ---------- Anotações ---------- */
+  .tag {
+    position: absolute; top: 0; left: 0; z-index: 2;
+    background: var(--note); color: #fff; padding: 6px 9px;
+    font: 600 11px/1 ui-monospace, Consolas, monospace; letter-spacing: .04em;
+  }
+  .note {
+    border: 1px dashed var(--note); background: var(--note-bg); color: var(--note-ink);
+    font-size: 13px; line-height: 1.5; padding: 10px 12px; margin: 0 0 32px; border-radius: 4px;
+  }
+  .note b { font-weight: 700; }
+  .note-strip { position: relative; padding: 36px 32px 0; background: #fff; }
+  .note-strip .note { margin-bottom: 16px; }
+  body.hide-notes .tag,
+  body.hide-notes .note,
+  body.hide-notes .note-strip,
+  body.hide-notes .seo { display: none; }
+
+  /* ---------- A página (LP) ---------- */
+  .page { container-type: inline-size; container-name: lp; font-family: var(--body); font-weight: 300; }
+  .page h1, .page h2, .page h3 { color: var(--ink); margin: 0; font-family: var(--display); font-weight: 400; }
+  .page p { margin: 0; line-height: 1.7; font-size: 17px; }
+  .page strong { font-weight: 600; color: var(--ink); }
+  .page a { color: inherit; }
+
+  .sec { position: relative; padding: 80px 64px; border-top: 1px dashed var(--line); }
+  .sec.alt { background: var(--soft); }
+  .wrap { max-width: 1120px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 400; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--mut); margin-bottom: 16px;
+  }
+  .h1 { font-size: 58px; line-height: 1.05; font-weight: 300 !important; letter-spacing: -.005em; }
+  .h2 { font-size: 42px; line-height: 1.12; font-weight: 300 !important; }
+  .h3 { font-size: 24px; line-height: 1.3; }
+  .lead { font-family: var(--display); font-style: italic; font-size: 25px !important; line-height: 1.4 !important; color: var(--ink); font-weight: 400; }
+  .stack { display: flex; flex-direction: column; gap: 16px; }
+  .sec-head { max-width: 760px; margin-bottom: 40px; }
+  .sec-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+
+  /* Placeholder de imagem */
+  .ph {
+    position: relative; display: grid; place-items: center;
+    background-color: var(--soft);
+    background-image:
+      linear-gradient(to top right, transparent calc(50% - .6px), var(--line) 50%, transparent calc(50% + .6px)),
+      linear-gradient(to top left,  transparent calc(50% - .6px), var(--line) 50%, transparent calc(50% + .6px));
+    border: 1px solid var(--line); border-radius: 8px; color: var(--mut);
+  }
+  .ph span {
+    background: var(--soft); padding: 6px 10px; border-radius: 4px; text-align: center;
+    font: 600 11px/1.4 ui-monospace, Consolas, monospace; text-transform: uppercase; letter-spacing: .05em;
+  }
+  .ico {
+    width: 44px; height: 44px; flex: none; border-radius: 8px; border: 1.5px solid var(--line);
+    background:
+      linear-gradient(to top right, transparent calc(50% - .6px), var(--line) 50%, transparent calc(50% + .6px)),
+      linear-gradient(to top left,  transparent calc(50% - .6px), var(--line) 50%, transparent calc(50% + .6px)),
+      #fff;
+  }
+
+  /* Botões */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 52px; padding: 0 28px; border: 1px solid var(--ink); border-radius: 2px;
+    background: var(--ink); color: #fff !important; text-decoration: none;
+    font: 400 13px/1.2 var(--body); text-transform: uppercase; letter-spacing: .16em; text-align: center;
+  }
+  .btn.ghost { background: #fff; color: var(--ink) !important; }
+  .btn.sm { min-height: 42px; padding: 0 16px; font-size: 12px; }
+  .wa { width: 20px; height: 20px; flex: none; }
+  .cta-row { margin-top: 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+  .cta-row .hint { font-size: 14px; color: var(--mut); }
+  .cta-row.center { justify-content: center; }
+
+  /* Header */
+  .hdr {
+    position: sticky; top: 0; z-index: 20; background: #fff; border-bottom: 1px solid var(--line);
+    padding: 14px 32px; display: flex; align-items: center; gap: 24px;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo .ph { width: 44px; height: 44px; border-radius: 6px; }
+  .logo strong { display: block; color: var(--ink); font-family: var(--display); font-size: 22px; font-weight: 500; line-height: 1.1; }
+  .logo small { display: block; color: var(--mut); font-size: 12px; letter-spacing: .06em; margin-top: 2px; }
+  .links { display: flex; gap: 24px; margin-left: auto; }
+  .links a { font-size: 15px; text-decoration: none; color: var(--txt); padding: 8px 0; }
+  .burger {
+    display: none; margin-left: auto; width: 44px; height: 44px; border: 1px solid var(--line);
+    border-radius: 6px; background: #fff; cursor: pointer; padding: 12px 11px;
+    flex-direction: column; justify-content: space-between;
+  }
+  .burger span { display: block; height: 2px; background: var(--ink); border-radius: 2px; }
+  .mnav {
+    display: none; position: absolute; left: 0; right: 0; top: 100%;
+    background: #fff; border-bottom: 1px solid var(--line); box-shadow: 0 12px 24px rgba(0,0,0,.08);
+    padding: 8px 20px 20px;
+  }
+  .mnav a { display: block; padding: 14px 0; border-bottom: 1px solid var(--soft2); text-decoration: none; color: var(--ink); font-family: var(--display); font-size: 21px; font-weight: 500; }
+  .mnav .btn { margin-top: 16px; width: 100%; border-bottom: 1px solid var(--ink); font-family: var(--body); font-size: 13px; font-weight: 400; }
+
+  /* Hero */
+  .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
+  .hero .ph { aspect-ratio: 4 / 5; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .chip { border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 14px; color: var(--txt); background: #fff; }
+  .oab { font-size: 13px !important; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); font-weight: 400; }
+
+  /* Intro */
+  .intro { max-width: 780px; margin: 0 auto; text-align: center; }
+  .intro .stack { margin-top: 20px; }
+  .quote { border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 24px 8px; font-family: var(--display); font-style: italic; font-size: 25px !important; line-height: 1.4 !important; font-weight: 400; color: var(--ink); margin-top: 16px; }
+
+  /* Cards */
+  .cards4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .cards2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .cards3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 24px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .card h3 { font-size: 23px; line-height: 1.2; font-weight: 500; }
+  .card p { font-size: 15px; line-height: 1.65; }
+  .card.big { padding: 36px; gap: 16px; }
+  .card.big h3 { font-size: 30px; font-weight: 400; }
+  .card.big p { font-size: 16px; }
+  .pill { align-self: flex-start; font-size: 11px; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; color: var(--mut); }
+
+  /* Split */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .split .ph { aspect-ratio: 1 / 1; }
+  .callout { border: 1px solid var(--ink); background: #fff; border-radius: 2px; padding: 20px 24px; font-family: var(--display); font-style: italic; font-size: 25px !important; line-height: 1.35 !important; font-weight: 500; color: var(--ink); }
+
+  /* Steps */
+  .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
+  .step { position: relative; border: 1px solid var(--line); border-radius: 10px; padding: 24px; background: #fff; display: flex; flex-direction: column; gap: 12px; }
+  .num { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--ink); display: grid; place-items: center; font-family: var(--display); font-size: 22px; font-weight: 400; color: var(--ink); }
+  .step h3 { font-size: 24px; font-weight: 500; }
+  .step p { font-size: 15px; }
+
+  /* Sobre */
+  .about .ph { aspect-ratio: 4 / 5; }
+  .badges { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .badge { display: flex; gap: 14px; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: #fff; }
+  .badge .ico { width: 36px; height: 36px; }
+  .badge strong { display: block; color: var(--ink); font-family: var(--display); font-size: 20px; font-weight: 500; line-height: 1.25; }
+  .badge small { display: block; color: var(--mut); font-size: 14px; line-height: 1.5; margin-top: 3px; }
+
+  /* Local */
+  .loc-card { text-align: left; }
+  .loc-card .k { font-size: 12px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: var(--mut); }
+  .loc-card .v { font-family: var(--display); font-size: 28px; line-height: 1.15; font-weight: 400; color: var(--ink); }
+  .map { margin-top: 16px; aspect-ratio: 21 / 7; }
+  .addr { margin-top: 12px; font-size: 15px !important; color: var(--mut); }
+
+  /* FAQ */
+  .faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: start; }
+  .faq { border-top: 1px solid var(--line); }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq summary {
+    list-style: none; cursor: pointer; padding: 22px 48px 22px 0; position: relative;
+    font-family: var(--display); font-weight: 500; color: var(--ink); font-size: 23px; line-height: 1.3; min-height: 44px;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+    width: 30px; height: 30px; border: 1px solid var(--ink); border-radius: 50%;
+    display: grid; place-items: center; font-family: var(--body); font-weight: 300; font-size: 18px; line-height: 1;
+  }
+  .faq details[open] summary::after { content: "−"; }
+  .faq .ans { padding: 0 0 22px; display: flex; flex-direction: column; gap: 12px; }
+  .faq .ans p { font-size: 16px; }
+
+  /* CTA final */
+  .final { background: var(--ink); color: #d1d1d6; text-align: center; }
+  .final .h2, .final strong { color: #fff; }
+  .final .stack { max-width: 700px; margin: 0 auto; align-items: center; }
+  .final .btn { background: #fff; color: var(--ink) !important; border-color: #fff; }
+  .final .sig { margin-top: 12px; font-size: 16px; line-height: 1.7; }
+  .final .sig strong:first-child { font-family: var(--display); font-size: 26px; font-weight: 500; }
+  .final .sig .sep { color: #8e8e93; }
+  .final .disc { margin-top: 32px; font-size: 13px !important; font-style: italic; color: #aeaeb2; }
+  .final .note { text-align: left; }
+
+  /* Footer */
+  .ftr { padding: 56px 64px 28px; border-top: 1px dashed var(--line); position: relative; }
+  .ftr-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 40px; }
+  .ftr h4 { margin: 0 0 12px; font-size: 12px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: var(--mut); }
+  .ftr ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15px; }
+  .ftr-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--soft2); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; font-size: 13px; color: var(--mut); }
+  .ftr-bottom nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+
+  /* Botão flutuante */
+  .fab {
+    position: fixed; z-index: 30; bottom: 20px;
+    right: calc(max(0px, (100vw - var(--fw)) / 2) + 28px);
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--ink); color: #fff; display: grid; place-items: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,.25); text-decoration: none;
+  }
+  .fab .wa { width: 28px; height: 28px; }
+  .fab-tag {
+    position: fixed; z-index: 30; bottom: 90px;
+    right: calc(max(0px, (100vw - var(--fw)) / 2) + 16px);
+    background: var(--note); color: #fff; padding: 6px 9px; border-radius: 4px;
+    font: 600 11px/1.3 ui-monospace, Consolas, monospace; max-width: 180px; text-align: right;
+  }
+  body.hide-notes .fab-tag { display: none; }
+
+  /* Painel SEO (fora da LP) */
+  .seo {
+    width: var(--fw); max-width: 100%; margin: 32px auto 0; background: #fff; border-radius: 8px;
+    border: 1px dashed var(--note); padding: 28px; color: var(--txt);
+  }
+  .seo h2 { margin: 0 0 4px; font-size: 20px; color: var(--note-ink); }
+  .seo > p { margin: 0 0 20px; font-size: 14px; color: var(--mut); }
+  .seo dl { margin: 0; display: grid; grid-template-columns: 170px 1fr; gap: 14px 20px; font-size: 14px; }
+  .seo dt { font-weight: 700; color: var(--ink); }
+  .seo dd { margin: 0; line-height: 1.55; }
+  .seo code { font-family: ui-monospace, Consolas, monospace; font-size: 13px; background: var(--soft); padding: 2px 5px; border-radius: 3px; }
+  .kw { display: flex; flex-wrap: wrap; gap: 6px; }
+  .kw span { background: var(--note-bg); color: var(--note-ink); border-radius: 999px; padding: 4px 10px; font-size: 12px; }
+  .seo h3 { margin: 24px 0 8px; font-size: 15px; color: var(--ink); }
+  .seo ul { margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 4px; }
+  .seo .ok li::marker { content: "✓  "; color: #2f7d4f; }
+  .seo .no li::marker { content: "✕  "; color: #b3261e; }
+  .seo .warn { margin-top: 20px; padding: 12px 14px; border-radius: 6px; background: #fff7e0; color: #5c4400; font-size: 13px; line-height: 1.55; }
+
+  /* ---------- Responsivo: TABLET ---------- */
+  @container lp (max-width: 960px) {
+    .sec { padding: 64px 32px; }
+    .hdr { padding: 12px 24px; }
+    .links, .hdr > .btn { display: none; }
+    .burger { display: flex; }
+    .hdr.open .mnav { display: block; }
+    .h1 { font-size: 46px; }
+    .h2 { font-size: 36px; }
+    .hero-grid { gap: 32px; }
+    .cards4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .split { gap: 40px; }
+    .faq-grid { grid-template-columns: 1fr; gap: 24px; }
+    .ftr { padding: 48px 32px 24px; }
+    .ftr-grid { grid-template-columns: 1fr 1fr; }
+    .ftr-grid > :first-child { grid-column: 1 / -1; }
+    .map { aspect-ratio: 16 / 7; }
+  }
+
+  /* ---------- Responsivo: MOBILE ---------- */
+  @container lp (max-width: 600px) {
+    .sec { padding: 56px 16px; }
+    .hdr { padding: 10px 16px; }
+    .note-strip { padding: 36px 16px 0; }
+    .logo .ph { width: 38px; height: 38px; }
+    .h1 { font-size: 38px; }
+    .h2 { font-size: 31px; }
+    .lead, .quote, .callout { font-size: 21px !important; }
+    .page p { font-size: 16px; }
+    .card.big h3 { font-size: 26px; }
+    .hero-grid, .split, .cards2, .cards3, .cards4, .steps { grid-template-columns: 1fr; }
+    .hero .ph { aspect-ratio: 1 / 1; }
+    .split.media-first .ph { order: -1; }
+    .split .ph { aspect-ratio: 16 / 10; }
+    .about .ph { aspect-ratio: 1 / 1; }
+    .card, .step { padding: 20px; }
+    .card.big { padding: 24px; }
+    .cta-row { flex-direction: column; align-items: stretch; text-align: center; }
+    .cta-row .btn { width: 100%; }
+    .map { aspect-ratio: 4 / 3; }
+    .ftr { padding: 44px 16px 24px; }
+    .ftr-grid { grid-template-columns: 1fr; gap: 28px; }
+    .faq summary { font-size: 20px; }
+  }
+
+  @media (max-width: 640px) {
+    .seo { padding: 20px 16px; }
+    .seo dl { grid-template-columns: 1fr; gap: 4px; }
+    .seo dd { margin-bottom: 12px; }
+    .stage { padding: 12px 0 96px; }
+    .frame-meta { padding: 0 12px; }
+  }
+</style>
+</head>
+<body data-vp="desktop">
+
+<!-- =========================================================
+     BARRA DE CONTROLE DO WIREFRAME (não faz parte da LP)
+     ========================================================= -->
+<div class="tb">
+  <h1>Wireframe · Landing Page Dr. Lucas Guedes
+    <small>Estrutura e hierarquia de conteúdo — sem identidade visual final</small>
+  </h1>
+  <div class="tb-ctrl">
+    <div class="seg" role="group" aria-label="Tamanho de tela">
+      <button type="button" data-vp="desktop" aria-pressed="true">Desktop</button>
+      <button type="button" data-vp="tablet" aria-pressed="false">Tablet</button>
+      <button type="button" data-vp="mobile" aria-pressed="false">Celular</button>
+      <button type="button" data-vp="full" aria-pressed="false">Livre</button>
+    </div>
+    <label class="tgl"><input type="checkbox" id="notes" checked> Anotações</label>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="frame-meta"><span id="vp-name">Desktop</span><span id="vp-px"></span></div>
+
+  <div class="frame">
+  <div class="page">
+
+    <!-- S00 · HEADER -->
+    <div class="note-strip">
+      <span class="tag">S00 · CABEÇALHO</span>
+      <p class="note"><b>Cabeçalho fixo</b> — acompanha a rolagem. Nome + nº de inscrição na OAB à esquerda, <b>visíveis em qualquer ponto da página</b> (a identificação do advogado é obrigatória em toda publicidade), atalhos para as seções e botão de WhatsApp à direita. <b>Tablet e celular:</b> os atalhos viram menu “hambúrguer” (clique para testar) e, no celular, o botão do topo dá lugar ao botão flutuante do WhatsApp.</p>
+    </div>
+    <header class="hdr" id="hdr">
+      <a class="logo" href="#topo">
+        <div class="ph"><span>logo</span></div>
+        <div><strong>Dr. Lucas Guedes</strong><small>Advogado · OAB/SP 554.377</small></div>
+      </a>
+      <nav class="links" aria-label="Seções">
+        <a href="#criminal">Criminal</a>
+        <a href="#vitima">Vítima</a>
+        <a href="#trabalhista">Trabalhista</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#duvidas">Dúvidas</a>
+      </nav>
+      <a class="btn sm" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>WhatsApp</a>
+      <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" id="burger"><span></span><span></span><span></span></button>
+      <div class="mnav" id="mnav">
+        <a href="#criminal">Direito Criminal</a>
+        <a href="#vitima">Assistência à vítima</a>
+        <a href="#trabalhista">Direito Trabalhista</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#duvidas">Dúvidas frequentes</a>
+        <a class="btn" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>Falar com o advogado</a>
+      </div>
+    </header>
+
+    <!-- S01 · HERO -->
+    <section class="sec hero" id="topo">
+      <span class="tag">S01 · HERO / PRIMEIRA DOBRA</span>
+      <div class="wrap">
+        <p class="note"><b>Primeira dobra:</b> quem é, o que faz, onde atende e o botão principal para o WhatsApp — tudo visível sem rolar. O título principal (H1) segue o texto definido para SEO. Foto profissional do Dr. Lucas à direita; <b>no celular</b> a foto desce para depois do botão. <b>OAB:</b> foto sóbria (retrato ou escritório) — nada de algemas, grades, martelo, dinheiro ou cenas dramáticas.</p>
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow">Dr. Lucas Guedes — OAB/SP 554.377</span>
+            <h1 class="h1">Advogado Criminal e Trabalhista em Caçapava e Vale do Paraíba</h1>
+            <div class="stack" style="margin-top:20px">
+              <p class="lead">Atuação jurídica individualizada, com análise cuidadosa do caso, comunicação clara e acompanhamento em todas as etapas necessárias.</p>
+              <p>Atendimento nas áreas <strong>Criminal e Trabalhista</strong>, para pessoas físicas e empresas, em Caçapava, cidades do Vale do Paraíba e, quando possível, em outras localidades do Brasil por atendimento remoto.</p>
+            </div>
+            <div class="cta-row">
+              <a class="btn" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>Falar com o advogado</a>
+              <span class="hint">Atendimento presencial e online.</span>
+            </div>
+            <div class="chips">
+              <span class="chip">Direito Criminal</span>
+              <span class="chip">Direito Trabalhista</span>
+              <span class="chip">Caçapava/SP</span>
+              <span class="chip">Presencial e online</span>
+            </div>
+          </div>
+          <div class="ph"><span>Foto profissional<br>Dr. Lucas Guedes</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S02 · INTRODUÇÃO -->
+    <section class="sec alt">
+      <span class="tag">S02 · INTRODUÇÃO</span>
+      <div class="wrap">
+        <p class="note"><b>Texto de posicionamento</b>, curto e centralizado. Gera confiança antes de apresentar as áreas de atuação. A frase final fica em destaque.</p>
+        <div class="intro">
+          <h2 class="h2">Cada situação jurídica exige uma análise própria</h2>
+          <div class="stack">
+            <p>Questões criminais e trabalhistas podem envolver decisões importantes, prazos, documentos e diferentes caminhos processuais.</p>
+            <p>Por isso, o atendimento começa pela compreensão detalhada do caso, seguida da análise jurídica e da definição das medidas adequadas para aquela situação específica.</p>
+            <p class="quote">O objetivo é proporcionar ao cliente informação, orientação e acompanhamento jurídico durante cada etapa do processo, sempre com transparência e respeito ao sigilo profissional.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S03 · DIREITO CRIMINAL -->
+    <section class="sec" id="criminal">
+      <span class="tag">S03 · ÁREAS DE ATUAÇÃO — CRIMINAL</span>
+      <div class="wrap">
+        <p class="note"><b>8 frentes de atuação em cartões</b> (ícone + título + descrição). 4 colunas no desktop, 2 no tablet, 1 no celular. O botão abre o WhatsApp com mensagem já preenchida sobre “caso criminal”.</p>
+        <div class="sec-head">
+          <span class="eyebrow">Áreas de atuação · Direito Criminal</span>
+          <h2 class="h2">Atuação na defesa de investigados, acusados e réus</h2>
+          <div class="stack" style="margin-top:16px">
+            <p>Assistência jurídica em diferentes momentos da persecução penal, desde situações anteriores ao processo até medidas cabíveis após o encerramento da ação.</p>
+            <p>A atuação poderá compreender, conforme as particularidades do caso:</p>
+          </div>
+        </div>
+        <div class="cards4">
+          <article class="card"><div class="ico"></div><h3>Inquérito Policial</h3><p>Acompanhamento durante investigações, análise das circunstâncias do caso e orientação jurídica durante a fase investigativa.</p></article>
+          <article class="card"><div class="ico"></div><h3>Prisão em Flagrante</h3><p>Atuação jurídica diante da prisão e acompanhamento dos procedimentos iniciais relacionados ao caso.</p></article>
+          <article class="card"><div class="ico"></div><h3>Audiência de Custódia</h3><p>Assistência jurídica durante a apresentação da pessoa presa ao Poder Judiciário.</p></article>
+          <article class="card"><div class="ico"></div><h3>Ação Penal</h3><p>Defesa e acompanhamento do processo criminal, incluindo audiências, manifestações processuais e demais atos necessários.</p></article>
+          <article class="card"><div class="ico"></div><h3>Tribunal do Júri</h3><p>Atuação em processos envolvendo crimes dolosos contra a vida, quando submetidos à competência do Tribunal do Júri.</p></article>
+          <article class="card"><div class="ico"></div><h3>Recursos</h3><p>Análise e utilização das medidas recursais juridicamente cabíveis de acordo com cada processo.</p></article>
+          <article class="card"><div class="ico"></div><h3>Execução Penal</h3><p>Acompanhamento de questões relacionadas ao cumprimento da pena e aos direitos da pessoa condenada.</p></article>
+          <article class="card"><div class="ico"></div><h3>Revisão Criminal</h3><p>Mesmo depois do trânsito em julgado de uma condenação, determinadas situações previstas em lei podem permitir a apresentação de uma Revisão Criminal.</p></article>
+        </div>
+        <div class="cta-row">
+          <a class="btn" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>Conversar sobre um caso criminal</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- S04 · VÍTIMA -->
+    <section class="sec alt" id="vitima">
+      <span class="tag">S04 · ASSISTÊNCIA À VÍTIMA</span>
+      <div class="wrap">
+        <p class="note"><b>Seção de destaque</b> com fundo diferenciado — é um tema que muitas vítimas desconhecem. A frase-chave fica em caixa de destaque. Imagem/ilustração de apoio à esquerda; <b>no celular</b> a imagem fica acima do texto. <b>OAB:</b> imagem neutra, sem apelo emocional ou sensacionalista (nada de vítima ferida, violência, choro).</p>
+        <div class="split media-first">
+          <div class="ph"><span>Imagem ou ilustração<br>de apoio</span></div>
+          <div class="stack">
+            <span class="eyebrow" style="margin-bottom:0">Assistência à vítima e Assistência de Acusação</span>
+            <h2 class="h2">A vítima também pode contar com acompanhamento de um advogado criminalista</h2>
+            <p>A advocacia criminal não atua somente na defesa de quem está sendo investigado ou acusado.</p>
+            <p class="callout">A vítima de um crime também pode contar com acompanhamento jurídico próprio.</p>
+            <p>O advogado pode orientar e acompanhar a vítima durante diferentes fases do caso, analisar documentos e provas, acompanhar o andamento da investigação e adotar as medidas juridicamente cabíveis para resguardar seus interesses.</p>
+            <p>Quando presentes os requisitos legais e já instaurada a ação penal pública, também poderá ocorrer a atuação como <strong>Assistente de Acusação</strong>, auxiliando a atuação do Ministério Público dentro dos limites estabelecidos pela legislação.</p>
+            <p>Essa possibilidade ainda é desconhecida por muitas vítimas, que frequentemente acreditam que somente a pessoa investigada ou acusada pode possuir advogado próprio no processo criminal.</p>
+            <p>O acompanhamento jurídico permite que a vítima compreenda melhor o andamento do caso, suas possibilidades de participação e os atos processuais que estão sendo realizados.</p>
+            <div class="cta-row" style="margin-top:16px">
+              <a class="btn" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>Falar com o advogado</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S05 · TRABALHISTA -->
+    <section class="sec" id="trabalhista">
+      <span class="tag">S05 · ÁREAS DE ATUAÇÃO — TRABALHISTA</span>
+      <div class="wrap">
+        <p class="note"><b>Dois públicos lado a lado:</b> trabalhador (reclamante) e empresa (reclamada), cada um em um cartão grande. Empilham no celular. Botão abre o WhatsApp com mensagem sobre “questão trabalhista”.</p>
+        <div class="sec-head">
+          <span class="eyebrow">Áreas de atuação · Direito Trabalhista</span>
+          <h2 class="h2">Atuação para trabalhadores e empresas</h2>
+          <p style="margin-top:16px">O atendimento trabalhista contempla tanto quem busca orientação relacionada aos seus direitos enquanto trabalhador quanto empresas que precisam de assessoria ou defesa em reclamações trabalhistas.</p>
+        </div>
+        <div class="cards2">
+          <article class="card big">
+            <div class="ico"></div>
+            <span class="pill">Reclamantes</span>
+            <h3>Para trabalhadores</h3>
+            <p>Orientação e acompanhamento jurídico em questões relacionadas à relação de trabalho, incluindo análise da situação, documentos e eventuais direitos envolvidos.</p>
+            <p>A atuação poderá compreender o processo desde seu ajuizamento até a conclusão definitiva, conforme as necessidades de cada caso.</p>
+          </article>
+          <article class="card big">
+            <div class="ico"></div>
+            <span class="pill">Reclamadas</span>
+            <h3>Para empresas</h3>
+            <p>Representação e acompanhamento de empresas em reclamações trabalhistas, com análise dos fatos, documentos apresentados e elaboração da estratégia jurídica adequada para a defesa processual.</p>
+            <p>O acompanhamento poderá ocorrer durante todas as etapas do processo trabalhista, inclusive audiências, manifestações, recursos e demais procedimentos aplicáveis.</p>
+          </article>
+        </div>
+        <div class="cta-row">
+          <a class="btn" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>Falar sobre uma questão trabalhista</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- S06 · COMO FUNCIONA -->
+    <section class="sec alt" id="como-funciona">
+      <span class="tag">S06 · COMO FUNCIONA</span>
+      <div class="wrap">
+        <p class="note"><b>Passo a passo numerado</b> em 4 etapas — reduz a insegurança de quem nunca procurou um advogado. 4 colunas no desktop, 2 no tablet, lista vertical no celular.</p>
+        <div class="sec-head center">
+          <span class="eyebrow">Passo a passo</span>
+          <h2 class="h2">Como funciona o atendimento</h2>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="num">01</div><h3>Entre em contato</h3><p>Entre em contato pelo WhatsApp e informe brevemente qual é a situação para a qual necessita de atendimento jurídico.</p></div>
+          <div class="step"><div class="num">02</div><h3>Consulta inicial</h3><p>Durante o atendimento, serão apresentados os fatos, documentos disponíveis e demais informações relevantes para a compreensão do caso.</p></div>
+          <div class="step"><div class="num">03</div><h3>Análise jurídica</h3><p>As particularidades da situação são analisadas para identificação dos possíveis caminhos jurídicos e das medidas aplicáveis.</p></div>
+          <div class="step"><div class="num">04</div><h3>Atuação e acompanhamento</h3><p>Havendo contratação dos serviços jurídicos, é realizado o acompanhamento das etapas relacionadas ao caso, com comunicação ao cliente durante seu desenvolvimento.</p></div>
+        </div>
+        <div class="cta-row center">
+          <a class="btn" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>Falar com o advogado</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- S07 · SOBRE -->
+    <section class="sec about" id="sobre">
+      <span class="tag">S07 · SOBRE O ADVOGADO</span>
+      <div class="wrap">
+        <p class="note"><b>Foto + apresentação.</b> OAB e pós-graduação aparecem logo abaixo do texto. <b>No celular</b> a foto fica acima. <b>OAB:</b> títulos acadêmicos podem ser citados; não usar “especialista” para Direito do Trabalho (sem titulação na área), nem “o melhor”, “referência”, “anos de vitórias” ou número de casos ganhos.</p>
+        <div class="split media-first">
+          <div class="ph"><span>Foto do Dr. Lucas<br>(escritório / retrato)</span></div>
+          <div class="stack">
+            <span class="eyebrow" style="margin-bottom:0">Sobre o Dr. Lucas Guedes</span>
+            <h2 class="h2">Lucas Guedes</h2>
+            <p class="oab">Advogado — OAB/SP 554.377</p>
+            <p>Atuação profissional nas áreas de <strong>Direito Penal, Processo Penal e Direito do Trabalho</strong>, prestando atendimento para pessoas físicas e empresas.</p>
+            <p>Seu trabalho é pautado pela análise individual de cada demanda, comunicação clara com o cliente e acompanhamento responsável das questões jurídicas confiadas ao escritório.</p>
+            <p>Atendimento presencial em <strong>Caçapava/SP</strong> e possibilidade de atendimento remoto para clientes de outras localidades.</p>
+            <div class="badges">
+              <div class="badge"><div class="ico"></div><div><strong>OAB/SP 554.377</strong><small>Inscrição na Ordem dos Advogados do Brasil — Seção São Paulo</small></div></div>
+              <div class="badge"><div class="ico"></div><div><strong>Pós-graduação em Direito Penal e Processo Penal</strong><small>Faculdade de Direito da Fundação Escola Superior do Ministério Público do Rio Grande do Sul</small></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S08 · ÁREA DE ATENDIMENTO -->
+    <section class="sec alt" id="atendimento">
+      <span class="tag">S08 · ÁREA DE ATENDIMENTO</span>
+      <div class="wrap">
+        <p class="note"><b>Três formas de atendimento</b> em cartões + <b>mapa do Google</b> com a localização do escritório em Caçapava (importante para buscas locais). Cartões empilham no celular.</p>
+        <div class="sec-head">
+          <span class="eyebrow">Onde atendemos</span>
+          <h2 class="h2">Atendimento em Caçapava, Vale do Paraíba e outras regiões</h2>
+          <div class="stack" style="margin-top:16px">
+            <p>O escritório está localizado em <strong>Caçapava/SP</strong>, com atendimento a clientes de diferentes cidades do Vale do Paraíba.</p>
+            <p>Também são realizados <strong>atendimentos online</strong>, permitindo a análise e o acompanhamento de casos de outras localidades do Brasil quando a natureza da demanda e as condições jurídicas permitirem a atuação remota.</p>
+          </div>
+        </div>
+        <div class="cards3">
+          <div class="card loc-card"><div class="ico"></div><span class="k">Presencial</span><span class="v">Caçapava/SP</span></div>
+          <div class="card loc-card"><div class="ico"></div><span class="k">Regional</span><span class="v">Vale do Paraíba</span></div>
+          <div class="card loc-card"><div class="ico"></div><span class="k">Online</span><span class="v">Outras localidades do Brasil</span></div>
+        </div>
+        <div class="ph map"><span>Mapa (Google Maps)<br>localização do escritório</span></div>
+        <p class="addr">[ENDEREÇO COMPLETO DO ESCRITÓRIO] · Caçapava/SP</p>
+        <div class="cta-row">
+          <a class="btn" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>Solicitar atendimento</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- S09 · FAQ -->
+    <section class="sec" id="duvidas">
+      <span class="tag">S09 · DÚVIDAS FREQUENTES</span>
+      <div class="wrap">
+        <p class="note"><b>Perguntas em sanfona</b> (abre/fecha ao clicar — já funciona neste wireframe). Título à esquerda e perguntas à direita no desktop; empilhado no tablet e celular. Também ajuda no SEO.</p>
+        <div class="faq-grid">
+          <div class="sec-head" style="margin-bottom:0">
+            <span class="eyebrow">FAQ</span>
+            <h2 class="h2">Dúvidas Frequentes</h2>
+          </div>
+          <div class="faq">
+            <details open>
+              <summary>O atendimento é particular ou pela Defensoria Pública?</summary>
+              <div class="ans">
+                <p>O atendimento realizado pelo escritório é <strong>exclusivamente particular</strong>.</p>
+                <p>O escritório não realiza atendimento pela Defensoria Pública nem presta assistência jurídica gratuita por meio de convênios dessa natureza.</p>
+                <p>Pessoas que não possuem condições financeiras para contratar um advogado particular podem verificar os critérios para atendimento junto à <strong>Defensoria Pública</strong> ou ao órgão responsável pela assistência jurídica gratuita em sua região.</p>
+              </div>
+            </details>
+            <details>
+              <summary>O atendimento é sigiloso?</summary>
+              <div class="ans">
+                <p>Sim.</p>
+                <p>As informações compartilhadas durante o atendimento jurídico são protegidas pelo dever de <strong>sigilo profissional</strong>, conforme as normas que regem o exercício da advocacia.</p>
+                <p>Isso permite que o cliente apresente os fatos relacionados ao seu caso em um ambiente profissional e reservado, condição essencial para que o advogado possa compreender adequadamente a situação e prestar a orientação jurídica pertinente.</p>
+              </div>
+            </details>
+            <details>
+              <summary>O escritório atende somente em Caçapava?</summary>
+              <div class="ans">
+                <p>Não.</p>
+                <p>O escritório está localizado em <strong>Caçapava/SP</strong> e realiza atendimentos para clientes de diferentes cidades do <strong>Vale do Paraíba</strong>.</p>
+                <p>Também é possível realizar atendimento remoto para pessoas de outras regiões do Brasil, dependendo das características do caso e da possibilidade de atuação à distância.</p>
+              </div>
+            </details>
+            <details>
+              <summary>Um advogado criminalista pode representar a vítima?</summary>
+              <div class="ans">
+                <p>Sim.</p>
+                <p>Embora seja comum associar a advocacia criminal exclusivamente à defesa de investigados ou acusados, a vítima também pode possuir advogado próprio.</p>
+                <p>Dependendo da fase e das características do caso, o advogado poderá acompanhar procedimentos, orientar a vítima e atuar na proteção de seus interesses.</p>
+                <p>Em determinadas ações penais públicas, preenchidos os requisitos legais, também poderá ocorrer a atuação como <strong>Assistente de Acusação</strong>.</p>
+              </div>
+            </details>
+            <details>
+              <summary>Posso procurar um advogado antes de existir um processo?</summary>
+              <div class="ans">
+                <p>Sim.</p>
+                <p>Nem toda atuação jurídica começa após o ajuizamento de uma ação.</p>
+                <p>Na área criminal, por exemplo, o acompanhamento pode ocorrer ainda durante uma investigação ou inquérito policial.</p>
+                <p>Na área trabalhista, também é possível buscar orientação para compreender determinada situação antes da adoção de uma medida judicial.</p>
+                <p>A análise do caso permite identificar quais providências podem ser juridicamente consideradas.</p>
+              </div>
+            </details>
+            <details>
+              <summary>Já existe um processo em andamento. Ainda posso procurar outro advogado?</summary>
+              <div class="ans">
+                <p>A existência de um processo em andamento não impede, por si só, a busca por orientação jurídica.</p>
+                <p>É necessário analisar a situação concreta, a fase processual, eventual representação jurídica já existente e os procedimentos necessários para uma possível alteração ou participação profissional.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S10 · CTA FINAL -->
+    <section class="sec final" id="contato">
+      <span class="tag">S10 · CHAMADA FINAL</span>
+      <div class="wrap">
+        <p class="note"><b>Bloco de encerramento em destaque</b> (fundo escuro/cor da marca), repetindo identificação, áreas e o botão de WhatsApp. O aviso de caráter informativo fica logo abaixo, em letra menor.</p>
+        <div class="stack">
+          <h2 class="h2">Precisa de orientação sobre uma situação jurídica?</h2>
+          <p>Entre em contato para apresentar brevemente o seu caso e obter informações sobre o atendimento.</p>
+          <p class="sig"><strong>Dr. Lucas Guedes</strong><br>Advogado — OAB/SP 554.377<br><strong>Direito Criminal | Direito Trabalhista</strong><br>Caçapava/SP <span class="sep">•</span> Vale do Paraíba <span class="sep">•</span> Atendimento Online</p>
+          <div class="cta-row center" style="margin-top:20px;width:100%">
+            <a class="btn" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>Falar com o advogado pelo WhatsApp</a>
+          </div>
+          <p class="disc">O conteúdo desta página possui caráter informativo. A análise jurídica e as medidas eventualmente aplicáveis dependem das circunstâncias específicas de cada caso.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- S11 · RODAPÉ -->
+    <footer class="ftr">
+      <span class="tag">S11 · RODAPÉ</span>
+      <p class="note"><b>Rodapé:</b> identificação, atalhos para as áreas e dados de contato. Os itens entre colchetes serão preenchidos com as informações do escritório. <b>Tráfego pago:</b> Política de Privacidade e aviso de cookies são necessários (LGPD), pois a página terá pixel/tag de anúncios; os avisos de caráter informativo também ficam aqui.</p>
+      <div class="ftr-grid">
+        <div>
+          <a class="logo" href="#topo">
+            <div class="ph"><span>logo</span></div>
+            <div><strong>Dr. Lucas Guedes</strong><small>Advogado · OAB/SP 554.377</small></div>
+          </a>
+          <p style="margin-top:14px;font-size:14px">Advocacia Criminal e Trabalhista em Caçapava e Vale do Paraíba.</p>
+        </div>
+        <div>
+          <h4>Áreas</h4>
+          <ul>
+            <li><a href="#criminal">Direito Criminal</a></li>
+            <li><a href="#vitima">Assistência à vítima</a></li>
+            <li><a href="#trabalhista">Direito Trabalhista</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contato</h4>
+          <ul>
+            <li>WhatsApp: [NÚMERO]</li>
+            <li>E-mail: [E-MAIL]</li>
+            <li>[ENDEREÇO] · Caçapava/SP</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ftr-bottom">
+        <span>© 2026 Dr. Lucas Guedes — Advogado, OAB/SP 554.377 · Conteúdo de caráter exclusivamente informativo.</span>
+        <nav aria-label="Informações legais"><a href="#topo">Política de Privacidade</a><a href="#topo">Preferências de cookies</a></nav>
+      </div>
+    </footer>
+
+  </div>
+  </div>
+
+  <!-- Painel de SEO (fora da LP) -->
+  <section class="seo" aria-label="Especificação de SEO">
+    <h2>Especificação de SEO</h2>
+    <p>Informações que não aparecem visualmente na página, mas serão configuradas no código.</p>
+    <dl>
+      <dt>Title (aba do navegador / Google)</dt>
+      <dd>Advogado Criminal e Trabalhista em Caçapava | Lucas Guedes</dd>
+      <dt>Meta description</dt>
+      <dd>Dr. Lucas Guedes, OAB/SP 554.377. Advocacia criminal e trabalhista em Caçapava e Vale do Paraíba, com atendimento presencial e online.</dd>
+      <dt>H1 (título principal)</dt>
+      <dd>Advogado Criminal e Trabalhista em Caçapava e Vale do Paraíba <em>— aplicado no Hero (S01)</em></dd>
+      <dt>Palavras-chave</dt>
+      <dd class="kw">
+        <span>advogado em Caçapava</span>
+        <span>advogado criminal em Caçapava</span>
+        <span>advogado criminalista em Caçapava</span>
+        <span>advogado penalista em Caçapava</span>
+        <span>advogado direito penal em Caçapava</span>
+        <span>advogado criminalista Vale do Paraíba</span>
+        <span>advogado criminal Vale do Paraíba</span>
+        <span>advogado trabalhista em Caçapava</span>
+        <span>advogado trabalhista Vale do Paraíba</span>
+        <span>escritório de advocacia em Caçapava</span>
+      </dd>
+      <dt>Dados estruturados</dt>
+      <dd><code>LegalService</code> (nome, OAB, endereço, área atendida) e <code>FAQPage</code> com as perguntas da S09.</dd>
+    </dl>
+  </section>
+
+  <!-- Painel OAB (fora da LP) -->
+  <section class="seo" aria-label="Conformidade com a OAB">
+    <h2>Conformidade OAB — página e tráfego pago</h2>
+    <p>Base: Código de Ética e Disciplina da OAB (arts. 39 a 47) e Provimento CFOAB nº 205/2021. Anúncios pagos são permitidos, desde que a publicidade seja <strong>informativa, discreta e sóbria</strong>, sem captação de clientela nem mercantilização.</p>
+
+    <h3>Já atendido nesta estrutura</h3>
+    <ul class="ok">
+      <li>Nome e nº de inscrição na OAB/SP no cabeçalho, no hero, no “Sobre”, no bloco final e no rodapé.</li>
+      <li>Texto descritivo: explica áreas e etapas, sem prometer resultado (“poderá”, “conforme o caso”, “quando presentes os requisitos legais”).</li>
+      <li>Nenhuma menção a honorários, preços, parcelamento, descontos ou consulta gratuita.</li>
+      <li>Sem depoimentos de clientes, casos concretos, números de processos ganhos ou comparação com outros advogados.</li>
+      <li>Botões com chamadas neutras (“Falar com o advogado”, “Solicitar atendimento”), sem urgência nem pressão.</li>
+      <li>Aviso de caráter informativo na chamada final e no rodapé.</li>
+      <li>Titulação citada é real e verificável (pós-graduação em Direito Penal e Processo Penal).</li>
+    </ul>
+
+    <h3>Não pode entrar na página, nos anúncios nem nas mensagens do WhatsApp</h3>
+    <ul class="no">
+      <li>Promessa ou sugestão de resultado: “garanta seus direitos”, “tire seu familiar da prisão”, “ganhe sua causa”, “indenização garantida”.</li>
+      <li>Urgência e pressão: “ligue já”, “não perca tempo”, “vagas limitadas”, “resolva hoje”.</li>
+      <li>Autoengrandecimento ou comparação: “o melhor advogado de Caçapava”, “o mais experiente”, “referência no Vale”, “nº 1”.</li>
+      <li>“Especialista em Direito Trabalhista” ou qualquer especialidade sem título que a comprove.</li>
+      <li>Valores, “consulta grátis”, “primeira consulta sem custo”, “pague só se ganhar”, descontos ou formas de pagamento.</li>
+      <li>Depoimentos, avaliações, prints de conversa, sentenças, alvarás ou valores obtidos por clientes.</li>
+      <li>Imagens sensacionalistas (algemas, viatura, sangue, dinheiro) ou de ostentação.</li>
+      <li>Palavras-chave ou anúncios com o nome de outros advogados/escritórios.</li>
+    </ul>
+
+    <h3>Configuração do tráfego pago</h3>
+    <ul>
+      <li>Anúncio com o mesmo tom da página. Ex.: “Advogado Criminal em Caçapava | OAB/SP 554.377 — Atendimento presencial e online”.</li>
+      <li>Mensagem pré-preenchida do WhatsApp neutra. Ex.: “Olá, gostaria de informações sobre atendimento em um caso criminal.”</li>
+      <li>Se houver resposta automática no WhatsApp, ela só recepciona e encaminha — a orientação jurídica é sempre feita pelo advogado.</li>
+      <li>Banner de cookies e Política de Privacidade publicados antes de ativar pixel do Meta/Google (LGPD).</li>
+      <li>Segmentação por região (Caçapava e Vale do Paraíba). Não criar anúncios mirando pessoas ligadas a um fato específico (ex.: familiares de presos em uma operação noticiada): isso caracteriza captação de clientela.</li>
+    </ul>
+
+    <p class="warn"><strong>Atenção:</strong> para atuar em mais de 5 causas por ano em outro estado, é necessária inscrição suplementar na respectiva seccional (Estatuto da Advocacia, art. 10, §2º) — o “atendimento online para todo o Brasil” deve respeitar esse limite. Recomenda-se validar a versão final dos textos e dos anúncios com o Tribunal de Ética da OAB/SP ou com a Comissão de Publicidade da seccional.</p>
+  </section>
+</div>
+
+<!-- Botão flutuante -->
+<span class="fab-tag">Botão flutuante do WhatsApp — sempre visível</span>
+<a class="fab" href="#contato" aria-label="Falar no WhatsApp"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg></a>
+
+<script>
+  (function () {
+    var body = document.body;
+    var frame = document.querySelector('.frame');
+    var names = { desktop: 'Desktop · 1280px', tablet: 'Tablet · 768px', mobile: 'Celular · 390px', full: 'Largura livre' };
+    var btns = document.querySelectorAll('.seg button');
+
+    function setVp(vp) {
+      body.setAttribute('data-vp', vp);
+      btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.vp === vp)); });
+      document.getElementById('vp-name').textContent = names[vp];
+      closeMenu();
+    }
+    btns.forEach(function (b) { b.addEventListener('click', function () { setVp(b.dataset.vp); }); });
+    if (window.innerWidth < 800) setVp('full');
+
+    var px = document.getElementById('vp-px');
+    new ResizeObserver(function () { px.textContent = Math.round(frame.getBoundingClientRect().width) + 'px de largura'; }).observe(frame);
+
+    document.getElementById('notes').addEventListener('change', function (e) {
+      body.classList.toggle('hide-notes', !e.target.checked);
+    });
+
+    var hdr = document.getElementById('hdr');
+    var burger = document.getElementById('burger');
+    function closeMenu() { hdr.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+    burger.addEventListener('click', function () {
+      var open = hdr.classList.toggle('open');
+      burger.setAttribute('aria-expanded', String(open));
+    });
+    document.querySelectorAll('#mnav a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+  })();
+</script>
+</body>
+</html>
