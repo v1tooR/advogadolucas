@@ -178,18 +178,18 @@
   .quote { border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 24px 8px; font-family: var(--display); font-style: italic; font-size: 25px !important; line-height: 1.4 !important; font-weight: 400; color: var(--ink); margin-top: 16px; }
 
   /* Cards */
-  .cards4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-  .cards2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
   .cards3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .grid-areas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .sub-head { max-width: 760px; margin: 0 0 28px; display: flex; flex-direction: column; gap: 14px; }
+  .grid-areas + .sub-head { margin-top: 64px; }
+  .sub-head h3 { font-size: 34px; font-weight: 400; line-height: 1.15; }
+  .sub-head .pill { margin-bottom: -2px; }
   .card {
     background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 24px;
     display: flex; flex-direction: column; gap: 12px;
   }
   .card h3 { font-size: 23px; line-height: 1.2; font-weight: 500; }
   .card p { font-size: 15px; line-height: 1.65; }
-  .card.big { padding: 36px; gap: 16px; }
-  .card.big h3 { font-size: 30px; font-weight: 400; }
-  .card.big p { font-size: 16px; }
   .pill { align-self: flex-start; font-size: 11px; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; color: var(--mut); }
 
   /* Split */
@@ -216,8 +216,6 @@
   .loc-card { text-align: left; }
   .loc-card .k { font-size: 12px; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: var(--mut); }
   .loc-card .v { font-family: var(--display); font-size: 28px; line-height: 1.15; font-weight: 400; color: var(--ink); }
-  .map { margin-top: 16px; aspect-ratio: 21 / 7; }
-  .addr { margin-top: 12px; font-size: 15px !important; color: var(--mut); }
 
   /* FAQ */
   .faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: start; }
@@ -302,14 +300,13 @@
     .h1 { font-size: 46px; }
     .h2 { font-size: 36px; }
     .hero-grid { gap: 32px; }
-    .cards4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-areas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .split { gap: 40px; }
     .faq-grid { grid-template-columns: 1fr; gap: 24px; }
     .ftr { padding: 48px 32px 24px; }
     .ftr-grid { grid-template-columns: 1fr 1fr; }
     .ftr-grid > :first-child { grid-column: 1 / -1; }
-    .map { aspect-ratio: 16 / 7; }
   }
 
   /* ---------- Responsivo: MOBILE ---------- */
@@ -322,17 +319,15 @@
     .h2 { font-size: 31px; }
     .lead, .quote, .callout { font-size: 21px !important; }
     .page p { font-size: 16px; }
-    .card.big h3 { font-size: 26px; }
-    .hero-grid, .split, .cards2, .cards3, .cards4, .steps { grid-template-columns: 1fr; }
+    .sub-head h3 { font-size: 28px; }
+    .hero-grid, .split, .cards3, .grid-areas, .steps { grid-template-columns: 1fr; }
     .hero .ph { aspect-ratio: 1 / 1; }
     .split.media-first .ph { order: -1; }
     .split .ph { aspect-ratio: 16 / 10; }
     .about .ph { aspect-ratio: 1 / 1; }
     .card, .step { padding: 20px; }
-    .card.big { padding: 24px; }
     .cta-row { flex-direction: column; align-items: stretch; text-align: center; }
     .cta-row .btn { width: 100%; }
-    .map { aspect-ratio: 4 / 3; }
     .ftr { padding: 44px 16px 24px; }
     .ftr-grid { grid-template-columns: 1fr; gap: 28px; }
     .faq summary { font-size: 20px; }
@@ -412,10 +407,10 @@
         <div class="hero-grid">
           <div>
             <span class="eyebrow">Dr. Lucas Guedes — OAB/SP 554.377</span>
-            <h1 class="h1">Advogado Criminal e Trabalhista em Caçapava e Vale do Paraíba</h1>
+            <h1 class="h1">Advogado Criminalista e Trabalhista em Caçapava e Vale do Paraíba</h1>
             <div class="stack" style="margin-top:20px">
               <p class="lead">Atuação jurídica individualizada, com análise cuidadosa do caso, comunicação clara e acompanhamento em todas as etapas necessárias.</p>
-              <p>Atendimento nas áreas <strong>Criminal e Trabalhista</strong>, para pessoas físicas e empresas, em Caçapava, cidades do Vale do Paraíba e, quando possível, em outras localidades do Brasil por atendimento remoto.</p>
+              <p>Atendimento nas áreas <strong>Criminal e Trabalhista</strong>, para pessoas físicas e empresas, em Caçapava e demais cidades do Vale do Paraíba. E em todo o território do Brasil por atendimento remoto.</p>
             </div>
             <div class="cta-row">
               <a class="btn" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>Falar com o advogado</a>
@@ -453,7 +448,7 @@
     <section class="sec" id="criminal">
       <span class="tag">S03 · ÁREAS DE ATUAÇÃO — CRIMINAL</span>
       <div class="wrap">
-        <p class="note"><b>8 frentes de atuação em cartões</b> (ícone + título + descrição). 4 colunas no desktop, 2 no tablet, 1 no celular. O botão abre o WhatsApp com mensagem já preenchida sobre “caso criminal”.</p>
+        <p class="note"><b>6 frentes de atuação em cartões</b> (ícone + título + descrição), em grade simétrica: 3 colunas no desktop (2 linhas), 2 no tablet, 1 no celular. O botão abre o WhatsApp com mensagem já preenchida sobre “caso criminal”.</p>
         <div class="sec-head">
           <span class="eyebrow">Áreas de atuação · Direito Criminal</span>
           <h2 class="h2">Atuação na defesa de investigados, acusados e réus</h2>
@@ -462,12 +457,10 @@
             <p>A atuação poderá compreender, conforme as particularidades do caso:</p>
           </div>
         </div>
-        <div class="cards4">
-          <article class="card"><div class="ico"></div><h3>Inquérito Policial</h3><p>Acompanhamento durante investigações, análise das circunstâncias do caso e orientação jurídica durante a fase investigativa.</p></article>
+        <div class="grid-areas">
           <article class="card"><div class="ico"></div><h3>Prisão em Flagrante</h3><p>Atuação jurídica diante da prisão e acompanhamento dos procedimentos iniciais relacionados ao caso.</p></article>
           <article class="card"><div class="ico"></div><h3>Audiência de Custódia</h3><p>Assistência jurídica durante a apresentação da pessoa presa ao Poder Judiciário.</p></article>
           <article class="card"><div class="ico"></div><h3>Ação Penal</h3><p>Defesa e acompanhamento do processo criminal, incluindo audiências, manifestações processuais e demais atos necessários.</p></article>
-          <article class="card"><div class="ico"></div><h3>Tribunal do Júri</h3><p>Atuação em processos envolvendo crimes dolosos contra a vida, quando submetidos à competência do Tribunal do Júri.</p></article>
           <article class="card"><div class="ico"></div><h3>Recursos</h3><p>Análise e utilização das medidas recursais juridicamente cabíveis de acordo com cada processo.</p></article>
           <article class="card"><div class="ico"></div><h3>Execução Penal</h3><p>Acompanhamento de questões relacionadas ao cumprimento da pena e aos direitos da pessoa condenada.</p></article>
           <article class="card"><div class="ico"></div><h3>Revisão Criminal</h3><p>Mesmo depois do trânsito em julgado de uma condenação, determinadas situações previstas em lei podem permitir a apresentação de uma Revisão Criminal.</p></article>
@@ -506,27 +499,38 @@
     <section class="sec" id="trabalhista">
       <span class="tag">S05 · ÁREAS DE ATUAÇÃO — TRABALHISTA</span>
       <div class="wrap">
-        <p class="note"><b>Dois públicos lado a lado:</b> trabalhador (reclamante) e empresa (reclamada), cada um em um cartão grande. Empilham no celular. Botão abre o WhatsApp com mensagem sobre “questão trabalhista”.</p>
+        <p class="note"><b>Mesmo formato da área criminal:</b> dois blocos — trabalhador (reclamante) e empresa (reclamada) — cada um com suas frentes de atuação em cartões. Trabalhadores: 6 cartões (3 colunas × 2 linhas). Empresas: 3 cartões (1 linha). 2 colunas no tablet, 1 no celular. <b>Os textos dos cartões são sugestões novas — o Dr. Lucas deve revisar.</b> Botão abre o WhatsApp com mensagem sobre “questão trabalhista”.</p>
         <div class="sec-head">
           <span class="eyebrow">Áreas de atuação · Direito Trabalhista</span>
           <h2 class="h2">Atuação para trabalhadores e empresas</h2>
           <p style="margin-top:16px">O atendimento trabalhista contempla tanto quem busca orientação relacionada aos seus direitos enquanto trabalhador quanto empresas que precisam de assessoria ou defesa em reclamações trabalhistas.</p>
         </div>
-        <div class="cards2">
-          <article class="card big">
-            <div class="ico"></div>
-            <span class="pill">Reclamantes</span>
-            <h3>Para trabalhadores</h3>
-            <p>Orientação e acompanhamento jurídico em questões relacionadas à relação de trabalho, incluindo análise da situação, documentos e eventuais direitos envolvidos.</p>
-            <p>A atuação poderá compreender o processo desde seu ajuizamento até a conclusão definitiva, conforme as necessidades de cada caso.</p>
-          </article>
-          <article class="card big">
-            <div class="ico"></div>
-            <span class="pill">Reclamadas</span>
-            <h3>Para empresas</h3>
-            <p>Representação e acompanhamento de empresas em reclamações trabalhistas, com análise dos fatos, documentos apresentados e elaboração da estratégia jurídica adequada para a defesa processual.</p>
-            <p>O acompanhamento poderá ocorrer durante todas as etapas do processo trabalhista, inclusive audiências, manifestações, recursos e demais procedimentos aplicáveis.</p>
-          </article>
+
+        <div class="sub-head">
+          <span class="pill">Reclamantes</span>
+          <h3>Para trabalhadores</h3>
+          <p>Orientação e acompanhamento jurídico em questões relacionadas à relação de trabalho, incluindo análise da situação, documentos e eventuais direitos envolvidos.</p>
+          <p>A atuação poderá compreender o processo desde seu ajuizamento até a conclusão definitiva, conforme as necessidades de cada caso.</p>
+        </div>
+        <div class="grid-areas">
+          <article class="card"><div class="ico"></div><h3>Reconhecimento de Vínculo de Emprego</h3><p>Análise de situações em que houve trabalho sem registro em carteira, para verificar a possibilidade de reconhecimento do vínculo e dos direitos dele decorrentes.</p></article>
+          <article class="card"><div class="ico"></div><h3>Rescisão Indireta</h3><p>Orientação nos casos em que o empregador descumpre obrigações do contrato de trabalho, hipótese em que a lei permite ao trabalhador pleitear o encerramento do vínculo.</p></article>
+          <article class="card"><div class="ico"></div><h3>Verbas Rescisórias</h3><p>Conferência dos valores devidos no encerramento do contrato, como saldo de salário, aviso prévio, férias, 13º salário e FGTS com a respectiva multa.</p></article>
+          <article class="card"><div class="ico"></div><h3>Horas Extras e Jornada</h3><p>Análise da jornada praticada, intervalos, banco de horas e trabalho em domingos e feriados, em comparação com o que prevê a legislação.</p></article>
+          <article class="card"><div class="ico"></div><h3>Insalubridade e Periculosidade</h3><p>Análise das condições do ambiente de trabalho e do pagamento dos adicionais previstos em lei para atividades insalubres ou perigosas.</p></article>
+          <article class="card"><div class="ico"></div><h3>Acidente de Trabalho e Doença Ocupacional</h3><p>Orientação sobre estabilidade provisória, responsabilidade do empregador e demais direitos relacionados a acidentes e doenças decorrentes do trabalho.</p></article>
+        </div>
+
+        <div class="sub-head">
+          <span class="pill">Reclamadas</span>
+          <h3>Para empresas</h3>
+          <p>Representação e acompanhamento de empresas em reclamações trabalhistas, com análise dos fatos, documentos apresentados e elaboração da estratégia jurídica adequada para a defesa processual.</p>
+          <p>O acompanhamento poderá ocorrer durante todas as etapas do processo trabalhista, inclusive audiências, manifestações, recursos e demais procedimentos aplicáveis.</p>
+        </div>
+        <div class="grid-areas">
+          <article class="card"><div class="ico"></div><h3>Defesa em Reclamações Trabalhistas</h3><p>Análise da reclamação, dos documentos da empresa e elaboração da contestação e das provas cabíveis.</p></article>
+          <article class="card"><div class="ico"></div><h3>Audiências e Conciliação</h3><p>Representação da empresa nas audiências de conciliação e instrução, incluindo a avaliação de propostas de acordo.</p></article>
+          <article class="card"><div class="ico"></div><h3>Recursos e Execução</h3><p>Análise das medidas recursais cabíveis e acompanhamento da fase de execução, incluindo conferência de cálculos.</p></article>
         </div>
         <div class="cta-row">
           <a class="btn" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>Falar sobre uma questão trabalhista</a>
@@ -566,11 +570,11 @@
             <span class="eyebrow" style="margin-bottom:0">Sobre o Dr. Lucas Guedes</span>
             <h2 class="h2">Lucas Guedes</h2>
             <p class="oab">Advogado — OAB/SP 554.377</p>
-            <p>Atuação profissional nas áreas de <strong>Direito Penal, Processo Penal e Direito do Trabalho</strong>, prestando atendimento para pessoas físicas e empresas.</p>
+            <p>Atuação profissional nas áreas de <strong>Direito Criminal e Direito do Trabalho</strong>, prestando atendimento para pessoas físicas e empresas.</p>
             <p>Seu trabalho é pautado pela análise individual de cada demanda, comunicação clara com o cliente e acompanhamento responsável das questões jurídicas confiadas ao escritório.</p>
             <p>Atendimento presencial em <strong>Caçapava/SP</strong> e possibilidade de atendimento remoto para clientes de outras localidades.</p>
             <div class="badges">
-              <div class="badge"><div class="ico"></div><div><strong>OAB/SP 554.377</strong><small>Inscrição na Ordem dos Advogados do Brasil — Seção São Paulo</small></div></div>
+              <div class="badge"><div class="ico"></div><div><strong>OAB/SP 554.377</strong><small>Inscrição na Ordem dos Advogados do Brasil — Seccional São Paulo</small></div></div>
               <div class="badge"><div class="ico"></div><div><strong>Pós-graduação em Direito Penal e Processo Penal</strong><small>Faculdade de Direito da Fundação Escola Superior do Ministério Público do Rio Grande do Sul</small></div></div>
             </div>
           </div>
@@ -582,7 +586,7 @@
     <section class="sec alt" id="atendimento">
       <span class="tag">S08 · ÁREA DE ATENDIMENTO</span>
       <div class="wrap">
-        <p class="note"><b>Três formas de atendimento</b> em cartões + <b>mapa do Google</b> com a localização do escritório em Caçapava (importante para buscas locais). Cartões empilham no celular.</p>
+        <p class="note"><b>Três formas de atendimento</b> em cartões. Cartões empilham no celular. <b>Sem endereço e sem mapa:</b> o endereço físico só é informado após o agendamento e pagamento da consulta. No Google Meu Negócio, cadastrar como empresa de “área de atendimento” (Caçapava e Vale do Paraíba), com o endereço oculto.</p>
         <div class="sec-head">
           <span class="eyebrow">Onde atendemos</span>
           <h2 class="h2">Atendimento em Caçapava, Vale do Paraíba e outras regiões</h2>
@@ -596,8 +600,6 @@
           <div class="card loc-card"><div class="ico"></div><span class="k">Regional</span><span class="v">Vale do Paraíba</span></div>
           <div class="card loc-card"><div class="ico"></div><span class="k">Online</span><span class="v">Outras localidades do Brasil</span></div>
         </div>
-        <div class="ph map"><span>Mapa (Google Maps)<br>localização do escritório</span></div>
-        <p class="addr">[ENDEREÇO COMPLETO DO ESCRITÓRIO] · Caçapava/SP</p>
         <div class="cta-row">
           <a class="btn" href="#contato"><svg class="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.7-4.9A8.5 8.5 0 1 1 8 19.6L3 21z"/></svg>Solicitar atendimento</a>
         </div>
@@ -658,13 +660,6 @@
                 <p>A análise do caso permite identificar quais providências podem ser juridicamente consideradas.</p>
               </div>
             </details>
-            <details>
-              <summary>Já existe um processo em andamento. Ainda posso procurar outro advogado?</summary>
-              <div class="ans">
-                <p>A existência de um processo em andamento não impede, por si só, a busca por orientação jurídica.</p>
-                <p>É necessário analisar a situação concreta, a fase processual, eventual representação jurídica já existente e os procedimentos necessários para uma possível alteração ou participação profissional.</p>
-              </div>
-            </details>
           </div>
         </div>
       </div>
@@ -712,7 +707,7 @@
           <ul>
             <li>WhatsApp: [NÚMERO]</li>
             <li>E-mail: [E-MAIL]</li>
-            <li>[ENDEREÇO] · Caçapava/SP</li>
+            <li>Caçapava/SP · Vale do Paraíba · Online</li>
           </ul>
         </div>
       </div>
@@ -731,11 +726,11 @@
     <p>Informações que não aparecem visualmente na página, mas serão configuradas no código.</p>
     <dl>
       <dt>Title (aba do navegador / Google)</dt>
-      <dd>Advogado Criminal e Trabalhista em Caçapava | Lucas Guedes</dd>
+      <dd>Advogado Criminalista e Trabalhista em Caçapava | Lucas Guedes</dd>
       <dt>Meta description</dt>
       <dd>Dr. Lucas Guedes, OAB/SP 554.377. Advocacia criminal e trabalhista em Caçapava e Vale do Paraíba, com atendimento presencial e online.</dd>
       <dt>H1 (título principal)</dt>
-      <dd>Advogado Criminal e Trabalhista em Caçapava e Vale do Paraíba <em>— aplicado no Hero (S01)</em></dd>
+      <dd>Advogado Criminalista e Trabalhista em Caçapava e Vale do Paraíba <em>— aplicado no Hero (S01)</em></dd>
       <dt>Palavras-chave</dt>
       <dd class="kw">
         <span>advogado em Caçapava</span>
@@ -750,7 +745,7 @@
         <span>escritório de advocacia em Caçapava</span>
       </dd>
       <dt>Dados estruturados</dt>
-      <dd><code>LegalService</code> (nome, OAB, endereço, área atendida) e <code>FAQPage</code> com as perguntas da S09.</dd>
+      <dd><code>LegalService</code> (nome, OAB, cidade e área atendida — sem endereço) e <code>FAQPage</code> com as perguntas da S09.</dd>
     </dl>
   </section>
 
@@ -780,11 +775,12 @@
       <li>Depoimentos, avaliações, prints de conversa, sentenças, alvarás ou valores obtidos por clientes.</li>
       <li>Imagens sensacionalistas (algemas, viatura, sangue, dinheiro) ou de ostentação.</li>
       <li>Palavras-chave ou anúncios com o nome de outros advogados/escritórios.</li>
+      <li>Qualquer texto que incentive a troca de advogado em processo em andamento — o advogado não deve aceitar procuração de quem já tem patrono constituído sem prévio conhecimento deste (CED, art. 14). Por isso essa pergunta foi retirada do FAQ.</li>
     </ul>
 
     <h3>Configuração do tráfego pago</h3>
     <ul>
-      <li>Anúncio com o mesmo tom da página. Ex.: “Advogado Criminal em Caçapava | OAB/SP 554.377 — Atendimento presencial e online”.</li>
+      <li>Anúncio com o mesmo tom da página. Ex.: “Advogado Criminalista em Caçapava | OAB/SP 554.377 — Atendimento presencial e online”.</li>
       <li>Mensagem pré-preenchida do WhatsApp neutra. Ex.: “Olá, gostaria de informações sobre atendimento em um caso criminal.”</li>
       <li>Se houver resposta automática no WhatsApp, ela só recepciona e encaminha — a orientação jurídica é sempre feita pelo advogado.</li>
       <li>Banner de cookies e Política de Privacidade publicados antes de ativar pixel do Meta/Google (LGPD).</li>
